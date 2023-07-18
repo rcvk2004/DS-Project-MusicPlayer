@@ -2,10 +2,15 @@
 #include <windows.h>
 #include <MMsystem.h>
 
-void playier();
+struct node {
+	char songName[30];
+	char songPath[40];
+	struct node *next;
+}*head = NULL;
 
-int main()
-{
+void playSongs();
+
+int main() {
 	int choice;
 	printf("Welcome to top music player\n");
 	printf("  =============           =========\n");
@@ -27,7 +32,7 @@ int main()
 		printf("Enter your choice: ");
 		scanf("%d",&choice);
 		switch (choice){
-			case 1:
+			case 1: playSongs();
 				break;
 			case 2:
 				break;
@@ -48,4 +53,18 @@ int main()
 	return 0;
 }
 
+void playSongs() {
+	if (head==NULL) {
+		printf("Playlist is empty!\n\n");
+		return;
+	}
+	struct node *ptr = head;
+	while (ptr!=NULL) {
+		printf("Playing song: %s\n",ptr->songName);
+		PlaySound(TEXT(ptr->songPath),NULL,SND_SYNC);
+		ptr = ptr->next;
+	}
+	
+	printf("Reached end of playlist\n");
+}
 
