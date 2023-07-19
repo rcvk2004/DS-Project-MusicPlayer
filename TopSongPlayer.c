@@ -7,6 +7,7 @@ struct node {
 	char songPath[40];
 	struct node *next;
 }*head = NULL;
+int nos=0;//no of songs
 
 void playSongs();
 
@@ -67,4 +68,24 @@ void playSongs() {
 	
 	printf("Reached end of playlist\n");
 }
+void insert(){
+	struct node *newnode;
+        newnode=(struct node*)malloc(sizeof(struct node));
+	newnode->next=NULL;
+	printf("Enter the name of the song you want to insert:");
+        scanf("%[^\n]",newnode->songName);
+	printf("Enter the path of the song:");
+        scanf("%s",newnode->songPath);  
+        if(head==NULL){
+		head=newnode;
+	}
+        else{
+              struct node *ptr=head;
+              while(ptr->next!=NULL){
+                     ptr=ptr->next;
+	      }
+              ptr->next=newnode;
+	}
+}
+              
 
