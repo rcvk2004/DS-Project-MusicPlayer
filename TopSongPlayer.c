@@ -95,7 +95,7 @@ void insert(){
 void display() {
 	struct node *ptr=head;
         int i=1;
-	printf("Here is you playlist: \n");
+	printf("Here is your playlist: \n");
         while(ptr!=NULL){
                  printf("  %d. ",i);
                  i=i+1;
@@ -104,5 +104,28 @@ void display() {
 	}
 	printf("\n");
 }
-          
+void search()
+{
+        int position=0,status=0;
+        printf("Enter song name to be searched:\n");
+	char song[40];
+        scanf("%s",song);
+        struct node*pointer=head;
+        while(pointer!=NULL)
+        {
+                 if(strcmp(pointer->songname,song)==0)
+                 {	  
+                    status=1;
+                    break;
+		 }
+                 pointer=pointer->next;
+                 position++;
+	}
+        if(status==1)
+       {	printf("The song is at position %d in the queue\nPlaying %s song...\n",position,song);
+                PlaySound(TEXT((pointer->songpath),NULL,SND_SYNC)
+			}
+	else
+		printf("OOPS!Song not found in our playlist.Try a different one... :)\n")
 
+}
