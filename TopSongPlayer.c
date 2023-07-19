@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <MMsystem.h>
 #include <stdlib.h>
+#include<string.h>
 
 struct node {
 	char songName[30];
