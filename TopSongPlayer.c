@@ -10,7 +10,7 @@ struct node {
 	struct node *next;
 }*head = NULL;
 int nos=0;		// variable to count no of songs
-
+void search();
 void playSongs();	// Function to play songs in a queue
 void insert();		// Function to insert songs in a queue
 void display();		// Function to display the songs present in the list
