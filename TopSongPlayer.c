@@ -10,6 +10,8 @@ struct node {
 int nos=0;//no of songs
 
 void playSongs();
+void insert();
+void display();
 
 int main() {
 	int choice;
@@ -86,6 +88,18 @@ void insert(){
 	      }
               ptr->next=newnode;
 	}
+	nos++;
 }
-              
+void display(){
+	struct node *ptr=head;
+        int i=1;
+        while(ptr!=NULL){
+                 printf("%d.",i);
+                 i=i+1;
+                 printf("%s\n",ptr->songName);
+                 printf(" %s",ptr->songPath):
+	         ptr=ptr->next;
+	}
+}
+          
 
