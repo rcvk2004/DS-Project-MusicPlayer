@@ -13,8 +13,8 @@ int nos=0;		// variable to count no of songs
 void search();
 void playSongs();	// Function to play songs in a queue
 void insert();		// Function to insert songs in a queue
-void display();		// Function to display the songs present in the list
-
+void display();         // Function to display the songs present in the list
+void shuffle();         //Function to shuffle the songs 
 int main() {
 	int choice;
 	printf("\3\3\3 Welcome to top music player \3\3\3\n");
@@ -43,7 +43,7 @@ int main() {
 				break;
 			case 3: insert();
 				break;
-			case 4:
+			case 4:shuffle();
 				break;
 			case 5:
 				break;
@@ -114,7 +114,7 @@ void search()
         struct node*pointer=head;
         while(pointer!=NULL)
         {
-                 if(strcmp(pointer->songname,song)==0)
+                 if(strcmp(pointer->songName,song)==0)
                  {	  
                     status=1;
                     break;
@@ -130,3 +130,30 @@ void search()
 		printf("OOPS!Song not found in our playlist.Try a different one... :)\n")
 
 }
+void shuffle()
+{ 
+  struct node *first=head;
+  struct node *second=head->next;
+  struct node *firsteven=head->next;
+   if(head==NULL)
+    {
+       printf("Playlist is empty");
+       return;
+    }
+  while(1)
+   {
+        if(second==NULL || second->next==NULL)
+          {
+              first->next=firsteven;
+	      return;
+          }
+          first->next=second->next;
+          first=second->next;
+          second->next=first->next;
+          second=first->next;
+   }
+}
+    
+     
+
+	  
