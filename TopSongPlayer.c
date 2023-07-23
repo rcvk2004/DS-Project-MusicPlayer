@@ -184,12 +184,12 @@ void shuffle()
             ptr1->next=ptr->next;
         }
         free(ptr);
-        printf("YAY..! %s song is deleted successfully from your playlist.\n",songDelete);
+        printf("YAY..! %s song is successfully deleted from your playlist.\n",songDelete);
         nos--;
     }
     else
     {
-        printf("SORRY..we couldn't find the song in your playlist %s.\n",songDelete);
+        printf("SORRY..we couldn't find the song %s in your playlist .\n",songDelete);
     }
     
 }
