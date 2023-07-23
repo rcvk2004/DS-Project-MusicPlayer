@@ -1,21 +1,30 @@
+/*
+* This is a Music Player program implemented in 'c' language (Using Windows API)
+* Use -lwinmm linker while compiling the file
+* 
+* Authors: Top Team
+* Version: 1.0
+*/
 #include <stdio.h>
 #include <windows.h>
 #include <MMsystem.h>
 #include <stdlib.h>
-#include<string.h>
+#include <string.h>
 
 struct node {
 	char songName[30];
 	char songPath[40];
 	struct node *next;
 }*head = NULL;
+
 int nos=0;		// variable to count no of songs
-void search();
+void search();		// Function to search song in playlist
 void playSongs();	// Function to play songs in a queue
 void insert();		// Function to insert songs in a queue
 void display();         // Function to display the songs present in the list
-void shuffle();          //Function to shuffle the songs
-void delete();           //Function to delete the song 
+void shuffle();         // Function to shuffle the songs
+void deleteSong();      // Function to delete the song
+
 int main() {
 	int choice;
 	printf("\3\3\3 Welcome to top music player \3\3\3\n");
@@ -37,16 +46,16 @@ int main() {
 	while (1) {
 		printf("Enter your choice: ");
 		scanf("%d",&choice);
-		switch (choice){
+		switch (choice) {
 			case 1: playSongs();
 				break;
 			case 2:
 				break;
 			case 3: insert();
 				break;
-			case 4:shuffle();
+			case 4: shuffle();
 				break;
-			case 5: delete();
+			case 5: deleteSong();
 				break;
 			case 6: display();
 				break;
@@ -73,7 +82,7 @@ void playSongs() {
 	printf("Reached end of playlist\n");
 }
 
-void insert(){
+void insert() {
 	struct node *newnode;
     	newnode=(struct node*)malloc(sizeof(struct node));
 	newnode->next=NULL;
@@ -86,7 +95,7 @@ void insert(){
 	}
     	else {
         	struct node *ptr=head;
-        	while(ptr->next!=NULL){
+        	while(ptr->next!=NULL) {
             		ptr=ptr->next;
 	    	}
             	ptr->next=newnode;
@@ -106,8 +115,8 @@ void display() {
 	}
 	printf("\n");
 }
-void search()
-{
+
+void search() {
         int position=0,status=0;
         printf("Enter song name to be searched:\n");
 	char song[40];
@@ -115,47 +124,43 @@ void search()
         struct node*pointer=head;
         while(pointer!=NULL)
         {
-                 if(strcmp(pointer->songName,song)==0)
-                 {	  
-                    status=1;
-                    break;
+                 if(strcmp(pointer->songName,song)==0) {	  
+        		status=1;
+                    	break;
 		 }
                  pointer=pointer->next;
                  position++;
 	}
-        if(status==1)
-       {	printf("The song is at position %d in the queue\nPlaying %s song...\n",position,song);
+        if(status==1) {	
+		printf("The song is at position %d in the queue\nPlaying %s song...\n",position,song);
                 PlaySound(TEXT((pointer->songpath),NULL,SND_SYNC)
-			}
+	}
 	else
-		printf("OOPS!Song not found in our playlist.Try a different one... :)\n")
+		printf("OOPS!Song not found in your playlist. Try a different one... :)\n")
 
 }
-void shuffle()
-{ 
-  struct node *first=head;
-  struct node *second=head->next;
-  struct node *firsteven=head->next;
-   if(head==NULL)
-    {
-       printf("Playlist is empty");
-       return;
-    }
-  while(1)
-   {
-        if(second==NULL || second->next==NULL)
-          {
-              first->next=firsteven;
-	      return;
-          }
-          first->next=second->next;
-          first=second->next;
-          second->next=first->next;
-          second=first->next;
-   }
+
+void shuffle() { 
+  	struct node *first=head;
+  	struct node *second=head->next;
+  	struct node *firsteven=head->next;
+   	if(head==NULL){
+       		printf("Playlist is empty");
+       		return;
+	}
+	while(1) {
+        	if(second==NULL || second->next==NULL) {
+              		first->next = firsteven;
+	      		return;
+          	}
+	        first->next=second->next;
+	        first=second->next;
+	        second->next=first->next;
+	        second=first->next;
+   	}
 }
-  void delete()
-{
+
+void deleteSong() {
     char songDelete[40];
     printf("Enter the name of the song to delete:");
     scanf("%s",songDelete);
@@ -163,36 +168,24 @@ void shuffle()
     struct node*ptr1=NULL;
     int found=0,position=0;
     
-    for(ptr=head;ptr!=NULL;ptr=ptr->next)
-    {
-        if(strcmp(ptr->songName,songDelete)==0)
-	{
+    for(ptr=head;ptr!=NULL;ptr=ptr->next) {
+        if(strcmp(ptr->songName,songDelete)==0) {
             found=1;
             break;
         }
         ptr1=ptr;
         position++;
     }
-    if(found==1)
-    {
+    if(found==1) {
         if(ptr1==NULL)
-	{
             head=ptr->next;
-        }
         else
-	{
             ptr1->next=ptr->next;
-        }
         free(ptr);
-        printf("YAY..! %s song is successfully deleted from your playlist.\n",songDelete);
+        printf("YAY..! \"%s\" song is successfully deleted from your playlist. ^_^\n",songDelete);
         nos--;
     }
-    else
-    {
-        printf("SORRY..we couldn't find the song %s in your playlist .\n",songDelete);
+    else {
+        printf("SORRY... we couldn't find the song \"%s\" in your playlist. :(\n",songDelete);
     }
-    
 }
-     
-
-	  
