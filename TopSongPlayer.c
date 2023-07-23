@@ -14,7 +14,8 @@ void search();
 void playSongs();	// Function to play songs in a queue
 void insert();		// Function to insert songs in a queue
 void display();         // Function to display the songs present in the list
-void shuffle();         //Function to shuffle the songs 
+void shuffle();          //Function to shuffle the songs
+void delete();           //Function to delete the song 
 int main() {
 	int choice;
 	printf("\3\3\3 Welcome to top music player \3\3\3\n");
@@ -45,7 +46,7 @@ int main() {
 				break;
 			case 4:shuffle();
 				break;
-			case 5:
+			case 5: delete();
 				break;
 			case 6: display();
 				break;
@@ -153,7 +154,45 @@ void shuffle()
           second=first->next;
    }
 }
+  void delete()
+{
+    char songDelete[40];
+    printf("Enter the name of the song to delete:");
+    scanf("%s",songDelete);
+    struct node*ptr=head;
+    struct node*ptr1=NULL;
+    int found=0,position=0;
     
+    for(ptr=head;ptr!=NULL;ptr=ptr->next)
+    {
+        if(strcmp(ptr->songName,songDelete)==0)
+	{
+            found=1;
+            break;
+        }
+        ptr1=ptr;
+        position++;
+    }
+    if(found==1)
+    {
+        if(ptr1==NULL)
+	{
+            head=ptr->next;
+        }
+        else
+	{
+            ptr1->next=ptr->next;
+        }
+        free(ptr);
+        printf("YAY..! %s song is deleted successfully from your playlist.\n",songDelete);
+        nos--;
+    }
+    else
+    {
+        printf("SORRY..we couldn't find the song in your playlist %s.\n",songDelete);
+    }
+    
+}
      
 
 	  
