@@ -133,10 +133,10 @@ void search() {
 	}
         if(status==1) {	
 		printf("The song is at position %d in the queue\nPlaying %s song...\n",position,song);
-                PlaySound(TEXT((pointer->songpath),NULL,SND_SYNC)
+                PlaySound(TEXT((pointer->songpath),NULL,SND_SYNC);
 	}
 	else
-		printf("OOPS!Song not found in your playlist. Try a different one... :)\n")
+		printf("OOPS!Song not found in your playlist. Try a different one... :)\n");
 
 }
 
