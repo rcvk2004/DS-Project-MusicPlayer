@@ -17,16 +17,17 @@ struct node {
 	struct node *next;
 }*head = NULL;
 
-int nos=0;		// variable to count no of songs
-void search();		// Function to search song in playlist
-void playSongs();	// Function to play songs in a queue
-void insert();		// Function to insert songs in a queue
-void display();         // Function to display the songs present in the list
-void shuffle();         // Function to shuffle the songs
-void deleteSong();      // Function to delete the song
+int nos=0;						// variable to count no of songs
+void search();					// Function to search song in playlist
+void playSongs();				// Function to play songs in a queue
+void insert();					// Function to insert songs in a queue
+void display();         		// Function to display the songs present in the list
+void shuffle();         		// Function to shuffle the songs
+void deleteSong();      		// Function to delete the song
+void playFrom(int);				// Function to play from custom song
 
 int main() {
-	int choice;
+	int choice,pos;
 	printf("\3\3\3 Welcome to top music player \3\3\3\n");
 	printf("   ===========            =========\n");
 	printf("  |           |          |         |\n");
@@ -49,7 +50,12 @@ int main() {
 		switch (choice) {
 			case 1: playSongs();
 				break;
-			case 2:
+			case 2: display();
+				if (nos!=0) {
+					printf("Enter from where to play: ");
+					scanf("%d",&pos);
+					playFrom(pos);
+				}
 				break;
 			case 3: insert();
 				break;
@@ -82,6 +88,25 @@ void playSongs() {
 	printf("Reached end of playlist\n");
 }
 
+void playFrom(int pos) {
+	int i = 0;
+	if (pos<=0 || pos>nos) {
+		printf("Enter a valid position '_'\n");
+		return;
+	}
+	struct node *ptr = head;
+	while (i<pos)
+		ptr = ptr->next;
+	
+	while (ptr!=NULL) {
+		printf("Playing song: %s\n",ptr->songName);
+		PlaySound(TEXT(ptr->songPath),NULL,SND_SYNC);
+		ptr = ptr->next;
+	}
+	
+	printf("Reached end of playlist\n");
+}
+
 void insert() {
 	struct node *newnode;
     	newnode=(struct node*)malloc(sizeof(struct node));
@@ -90,28 +115,32 @@ void insert() {
 	scanf("%s",newnode->songName);
 	printf("Enter the path of the song: ");
 	scanf("%s",newnode->songPath);
-    	if(head==NULL){
-		head=newnode;
+	if(head==NULL) {
+	head=newnode;
 	}
-    	else {
-        	struct node *ptr=head;
-        	while(ptr->next!=NULL) {
-            		ptr=ptr->next;
-	    	}
-            	ptr->next=newnode;
+	else {
+		struct node *ptr=head;
+		while(ptr->next!=NULL) {
+			ptr=ptr->next;
+		}
+			ptr->next=newnode;
 	}
 	nos++;
 }
 
 void display() {
 	struct node *ptr=head;
-        int i=1;
+	if (nos==0) {
+		printf("Opps! Playlist is empty\n");
+		return;
+	}
+    int i=1;
 	printf("Here is your playlist: \n");
-        while(ptr!=NULL){
-                 printf("  %d. ",i);
-                 i=i+1;
-                 printf("%s\n",ptr->songName);
-	         ptr=ptr->next;
+    while(ptr!=NULL){
+        printf("  %d. ",i);
+        i=i+1;
+        printf("%s\n",ptr->songName);
+	    ptr=ptr->next;
 	}
 	printf("\n");
 }
@@ -119,21 +148,21 @@ void display() {
 void search() {
         int position=0,status=0;
         printf("Enter song name to be searched:\n");
-	char song[40];
+		char song[40];
         scanf("%s",song);
-        struct node*pointer=head;
-        while(pointer!=NULL)
+        struct node *ptr=head;
+        while(ptr!=NULL)
         {
-                 if(strcmp(pointer->songName,song)==0) {	  
+            if(strcmp(ptr->songName,song)==0) {	  
         		status=1;
-                    	break;
-		 }
-                 pointer=pointer->next;
-                 position++;
-	}
+            break;
+		 	}
+            ptr=ptr->next;
+            position++;
+		}
         if(status==1) {	
 		printf("The song is at position %d in the queue\nPlaying %s song...\n",position,song);
-                PlaySound(TEXT((pointer->songpath),NULL,SND_SYNC);
+        PlaySound(TEXT(ptr->songPath),NULL,SND_SYNC);
 	}
 	else
 		printf("OOPS!Song not found in your playlist. Try a different one... :)\n");
@@ -187,5 +216,5 @@ void deleteSong() {
     }
     else {
         printf("SORRY... we couldn't find the song \"%s\" in your playlist. :(\n",songDelete);
-    }
+	}
 }
