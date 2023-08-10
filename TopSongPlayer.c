@@ -65,7 +65,9 @@ int main() {
 				break;
 			case 6: display();
 				break;
-			case 7: exit(0);
+			case 7: search();
+				break;
+			case 8: exit(0);
 			default: printf("     Enter a valid choice !\n\n");
 		}
 	}
