@@ -38,11 +38,11 @@ int main() {
 	printf("        ==       ======  |\n");
 	printf("\nVersion: 1.0\n");
 	printf("Copyright 2023 Top | All Rights reserved\n");
-	// PlaySound(TEXT(".\\Songs\\welcome-note.WAV"),NULL,SND_SYNC);
+	PlaySound(TEXT(".\\Songs\\welcome-note.WAV"),NULL,SND_SYNC);
 	printf("\nOperations that this music player can perform\n");
 	printf("  1. Play Songs\n  2. Select from which song to play\n  3. Insert new song in playlist\n  4. Shuffle playlist\n  5. Delete a song from playlist\n");
 	printf("  6. Display playlist\n  7. Search song\n  8. Exit\n");
-	// PlaySound(TEXT(".\\Songs\\Info.WAV"),NULL,SND_SYNC);
+	PlaySound(TEXT(".\\Songs\\Info.WAV"),NULL,SND_SYNC);
 	
 	while (1) {
 		printf("Enter your choice: ");
